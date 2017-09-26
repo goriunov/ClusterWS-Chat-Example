@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ClusterWS Chat</title>
+</head>
+
+<body>
+    <input type="text" id="msg">
+    <button id="send">Send message</button>
+    <p id="allmsg"></p>
+
+    <script src="./scripts/ClusterWS.min.js"></script>
+    <script>
+        let clusterws = new ClusterWS({
+            url: 'localhost',
+            port: 80
+        })
+
+        let chat
+        let userId
+        clusterws.on('id', (id) => userId = id)
+        clusterws.on('connect', () => {
+            chat = clusterws.subscribe('chat').watch((msg) => document.getElementById('allmsg').innerHTML = document.getElementById('allmsg').innerHTML + '<br>' + msg)
+        })
+
+        document.getElementById('send').onclick = () => chat.publish('<strong>' + userId + ': </strong>' + document.getElementById('msg').value)
+    </script>
+</body>
+
+</html>
