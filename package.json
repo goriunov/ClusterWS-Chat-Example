@@ -1,12 +1,10 @@
 {
   "name": "clusterws-example",
   "version": "1.0.0",
-  "description": "",
+  "description": "ClusterWS - chat example",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "scripts": {},
+  "author": "Dmitrii Goriunov",
   "license": "ISC",
   "dependencies": {
     "clusterws": "^1.0.0",
