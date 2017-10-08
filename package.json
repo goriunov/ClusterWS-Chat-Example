@@ -7,7 +7,8 @@
   "author": "Dmitrii Goriunov",
   "license": "ISC",
   "dependencies": {
-    "clusterws": "^1.0.0",
+    "clusterws": "^1.1.0",
+    "clusterws-client-js": "^1.1.0",
     "koa": "^2.3.0",
     "koa-static": "^4.0.1"
   }
