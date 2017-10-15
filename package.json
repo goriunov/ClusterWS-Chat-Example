@@ -1,15 +1,20 @@
 {
-  "name": "clusterws-example",
+  "name": "clusterws-chat",
   "version": "1.0.0",
-  "description": "ClusterWS - chat example",
+  "description": "",
   "main": "index.js",
-  "scripts": {},
-  "author": "Dmitrii Goriunov",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "clusterws": "^1.1.0",
-    "clusterws-client-js": "^1.1.0",
+    "clusterws": "^1.1.5",
+    "clusterws-client-js": "^1.2.5",
     "koa": "^2.3.0",
     "koa-static": "^4.0.1"
+  },
+  "engines": {
+    "node": "7.10.1"
   }
 }

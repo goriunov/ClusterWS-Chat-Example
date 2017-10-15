@@ -1,27 +1,34 @@
-let Koa = require('koa')
-let static = require('koa-static')
-let ClusterWS = require('clusterws').ClusterWS
+const Koa = require('koa')
+const koaStatic = require('koa-static')
+const ClusterWS = require('clusterws').ClusterWS
 
-// We create new ClusterWS instance
-// with 2 workers (you can put as many as you want but usualy you should set it to the amount of cpu on your computer)
-// you can set port but i am using 80 (default one)
-// For more information about options check repo https://github.com/goriunov/ClusterWS
+// Create ClusterWS with 2 workers (why 2 just for this example usually you will get amount of cpus)
 let cws = new ClusterWS({
     worker: Worker,
-    workers: 2
+    workers: 2,
+    port: process.env.PORT || 80
 })
 
-// Worker function which will be executed in each worker/cluster (place for your logic)
+// Our worker code
 function Worker() {
-    var httpServer = this.httpServer
-    var socketServer = this.socketServer
-    
-    // Just using Koa nothing more :)     
+    const httpServer = this.httpServer
+    const socketServer = this.socketServer
+
+    // Koa logic
     let app = new Koa()
-    app.use(static('public'))
-    // Bind Koa and ClusterWS (in case of express you should pass just 'app' without callback fn)     
+    app.use(koaStatic('public'))
+    
+    // Connect ClusterWS http handler and Koa module
     httpServer.on('request', app.callback())
-  
-    // Listen on websocket connections to the server      
-    socketServer.on('connection', (client) => client.send('id', Math.floor((Math.random() * 10000) + 10000)))
+
+    // Socket part (listen on connection to the socket)
+    socketServer.on('connection', (socket) => {
+        // On connection publish message that user is connected to everyone who is subscribed to chat channel
+        socketServer.publish('chat', { id: 'global', text: 'New user is connected to the chat' })
+        
+        // On disconnect  send everyone that user is disconnected
+        socket.on('disconnect', () => {
+            socketServer.publish('chat', { id: 'global', text: 'User is disconnected' })
+        })
+    })
 }

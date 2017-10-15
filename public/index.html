@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <title>ClusterWS Chat</title>
+
+    <!-- Import bootstrap for better styles -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
+
+    <!-- Our styles import -->
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 
-<body>
-    <input type="text" id="mymsg">
-    <button id="sendmsg">Send Message</button>
-    <p id="allmsg"></p>
-  
-    <!--  Import ClusterWS client Library     -->
-    <script src="./ClusterWS.min.js"></script>
-    <script>
-        // Check https://github.com/goriunov/ClusterWS-Client-JS for more options  
-        let clusterws = new ClusterWS({
-            url: 'localhost',
-            port: 80
-        })
-        
-        // Listen on id event from the server and asign this id to this user
-        let userId
-        clusterws.on('id', (id) => userId = id)
-        
-        // Listen on connect event and then subscribe to the channel chat 
-        // and in case of any messages on the channel, put it to the  'allmsg' bloc     
-        let publicChat
-        clusterws.on('connect', () => publicChat = clusterws.subscribe('chat').watch((msg) => document.getElementById('allmsg').innerHTML = document.getElementById('allmsg').innerHTML + '<br>' + msg))
-        
-        // Listen on click event on button Send Message and publish message which is written in input         
-        document.getElementById('sendmsg').onclick = () => publicChat.publish('<strong>' + userId + ': </strong>' + document.getElementById('mymsg').value)
-    </script>
+<body class="container" id="body">
+    <!-- Header with Text in the middle -->
+    <div class="header">
+        <h2>ClusterWS Chat</h2>
+    </div>
+
+    <!-- Display all messagess -->
+    <div class="row">
+        <div id="messages" class="col-12 all-messages"></div>
+    </div>
+
+    <!-- Input and button send -->
+    <form class="row" id="form">
+        <input id="input" placeholder="Message..." type="text" class="form-control message-input col-7 col-sm-8 col-md-10">
+        <button type="submit" class="btn btn-primary submit-btn col-5 col-sm-4 col-md-2">Send Message</button>
+    </form>
+
+    <!-- Import ClusterWS and our logic for socket-->
+    <script src="assets/ClusterWS.min.js"></script>
+    <script src="assets/main.js"></script>
 </body>
 
 </html>

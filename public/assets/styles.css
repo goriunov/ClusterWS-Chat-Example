@@ -1,0 +1,64 @@
+body,
+html {
+    height: 100%;
+    background: #f4f4f4;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 70px;
+    background: linear-gradient(to right, #0063cc, #007bff, #0063cc);
+    text-align: center;
+    color: white;
+    padding-top: 15px;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+form {
+    position: fixed;
+    bottom: 0;
+    left: 2px;
+    right: 2px;
+}
+
+.message-input {
+    padding-left: 20px;
+    border-radius: 0;
+}
+
+.submit-btn {
+    border-radius: 0;
+}
+
+.all-messages {
+    padding-top: 90px;
+    padding-bottom: 50px;
+    z-index: 0;
+}
+
+.someone-message {
+    margin: 5px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #007bff;
+    color: white;
+}
+
+.your-message {
+    margin: 5px;
+    padding: 20px;
+    border-radius: 10px;
+    background: #66b0ff;
+    color: white;
+    text-align: right;
+}
+
+.info {
+    text-align: center;
+    color: gray;
+    padding: 10px;
+}
